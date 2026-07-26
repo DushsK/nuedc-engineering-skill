@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If this project helps your team, cite the repository and the release used."
+title: "NUEDC Engineering Skill"
+type: software
+authors:
+  - family-names: "DushsK"
+repository-code: "https://github.com/DushsK/nuedc-engineering-skill"
+license: MIT
+version: 0.1.0
+date-released: 2026-07-26

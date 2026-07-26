@@ -1,0 +1,21 @@
+schema_version: 1
+generated_on: 2026-07-26
+generator: scripts/build_problem_index.py
+records: 206
+sources:
+  - id: chenshuo-nuedc
+    repository: https://github.com/chenshuo/nuedc
+    branch: main
+    revision: 0cfc646efc7f70faa3c8cd0dc5a05a1315e89fef
+    input: docs/problems filenames and local corpus paths
+    role: historical problem metadata and source links
+  - id: nuedc-topic
+    repository: https://github.com/CCBP/NUEDC_Topic
+    branch: main
+    revision: 7e6a24a56f4b30b3fbcc1fd0743ee7a2c254c37f
+    input: repository tree snapshot
+    role: additional years, event paths and source links
+notes:
+  - "Original problem documents are not redistributed by this repository."
+  - "The 2026 records in this snapshot are identified as the April Jilin regional event."
+  - "Labels are generated heuristics and require original-statement review before engineering use."

@@ -1,0 +1,27 @@
+name: Knowledge gap
+description: Report a missing topic, platform, or verified hardware rule
+title: "[Knowledge] "
+labels: [knowledge]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic or platform
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Contest scenario
+      description: Describe the problem type and why the current skill is insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Primary sources
+      description: Provide official manuals, errata, schematics, standards, or papers when available.
+  - type: textarea
+    id: safety
+    attributes:
+      label: Physical or safety impact

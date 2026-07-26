@@ -1,0 +1,24 @@
+name: Problem metadata correction
+description: Correct a year, code, title, category, or source link
+title: "[Metadata] "
+labels: [data]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Affected record
+      placeholder: "2023 C ..."
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Authoritative source
+    validations:
+      required: true

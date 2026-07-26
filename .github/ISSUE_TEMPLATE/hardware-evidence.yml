@@ -1,0 +1,54 @@
+name: Hardware evidence
+description: Add or correct a claim backed by an official manual, errata, schematic, standard, or paper
+title: "[Evidence] "
+labels: [hardware, evidence]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit one bounded claim. Product-page summaries, marketplace listings and generated configuration screenshots are not sufficient primary evidence.
+  - type: input
+    id: target
+    attributes:
+      label: Exact target
+      description: Include part number, suffix, package, board and revision when applicable.
+      placeholder: STM32G474RET6 on board revision B
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim to add or correct
+      description: State one precise electrical, timing, resource, routing, control or safety claim.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Primary-source evidence
+      description: Provide the official document title, number, revision, URL, chapter/page/table and access date.
+    validations:
+      required: true
+  - type: textarea
+    id: consequence
+    attributes:
+      label: Engineering consequence
+      description: Explain how the evidence changes the schematic, PCB, firmware, algorithm, test or safety decision.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Calculation or measurement
+      description: Include a reproducible calculation, test setup, expected result and observed result when available.
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Suggested severity
+      options:
+        - STOP
+        - FIX
+        - IMPROVE
+        - Informational
+    validations:
+      required: true
