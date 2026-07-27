@@ -30,9 +30,23 @@
 ## 修改流程
 
 1. 新建分支并进行聚焦修改。
-2. 运行 `python scripts/check_project.py`。
-3. 若修改题目分类，重新生成 `data/historical-problems.csv` 和 `data/historical-summary.md`。
-4. 同步更新 `data/provenance.yml` 中的输入版本和记录数。
-5. 在 PR 中说明证据、验证方式和剩余风险。
+2. 在修改前记录备份方式、基线提交/标签和回滚步骤。
+3. 若使用 AI 生成或实质重写代码，更新 `AI_PROVENANCE.md`，并按模型家族为项目自有符号加前缀。
+4. 更新 `CHANGELOG.md`；发布版本同时更新 `VERSION`、`CITATION.cff` 和 README 状态。
+5. 运行 `python scripts/check_project.py`。
+6. 若修改题目分类，重新生成 `data/historical-problems.csv` 和 `data/historical-summary.md`。
+7. 同步更新 `data/provenance.yml` 中的输入版本和记录数。
+8. 在 PR 中说明证据、验证方式和剩余风险。
 
 核心 `SKILL.md` 保持简洁，详细知识放入 `references/`。明确区分事实、假设、计算和建议。
+
+## AI 代码与实现质量
+
+- OpenAI GPT/Codex 使用 `GPT_`，Claude 使用 `Claude_`，其他模型使用对应的规范化家族前缀。
+- 前缀覆盖 AI 新建的项目自有函数、宏/常量、类型、枚举、全局状态、任务和模块入口；局部变量可保持语言惯例。
+- 厂商 SDK、启动文件、中断向量、协议、框架 override 和公共 ABI 要求的固定名称保持不变，但应转调带前缀的实现，并在溯源表中登记。
+- 不引入没有真实复用、边界、测试、所有权或复杂度收益的包装函数、工厂、注册表、依赖注入或通用框架。
+- 不添加与具体故障模型无关的重复检查、无限重试、静默回退或吞异常逻辑。
+- 不得凭空生成 API、引脚、寄存器、时钟、构建命令或测试命令。缺证据时明确标记未验证，并说明所需文档或测量。
+
+完整规则见 [`references/ai-code-quality.md`](references/ai-code-quality.md)，提交时使用仓库的 Pull Request 模板。

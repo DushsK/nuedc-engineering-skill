@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 
 
-TEMPLATE = """# {title}
+GPT_TEMPLATE = """# {title}
 
 ## 1. Evidence Set
 
@@ -76,7 +76,19 @@ TEMPLATE = """# {title}
 - Fault detection, degraded mode and watchdog policy:
 - Logging and observable signals:
 
-## 9. Bring-up Sequence
+## 9. AI Code, Backup, and Version
+
+- User-selected backup method:
+- Baseline commit/tag/archive:
+- Target version and changelog entry:
+- Generator family and required prefix:
+- AI-created files/symbols:
+- External-name exceptions:
+- Why each new abstraction exists:
+- Failure mode behind each defensive check:
+- Rollback procedure:
+
+## 10. Bring-up Sequence
 
 1. Unpowered inspection.
 2. Current-limited rails.
@@ -87,7 +99,7 @@ TEMPLATE = """# {title}
 7. Open-loop identification.
 8. Closed-loop integration.
 
-## 10. Acceptance and Fault Tests
+## 11. Acceptance and Fault Tests
 
 | Test | Stimulus | Expected result | Instrument/log | Pass criteria | Result |
 |---|---|---|---|---|---|
@@ -96,7 +108,7 @@ TEMPLATE = """# {title}
 | Power cycle | | | | | |
 | Sensor/communication loss | | | | | |
 
-## 11. Findings
+## 12. Findings
 
 - `STOP`:
 - `FIX`:
@@ -104,7 +116,7 @@ TEMPLATE = """# {title}
 """
 
 
-def main() -> int:
+def GPT_main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--title", required=True)
     parser.add_argument("--year", default="unknown")
@@ -112,7 +124,7 @@ def main() -> int:
     parser.add_argument("--platform", default="undecided")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    content = TEMPLATE.format(title=args.title, year=args.year, code=args.code, platform=args.platform)
+    content = GPT_TEMPLATE.format(title=args.title, year=args.year, code=args.code, platform=args.platform)
     if args.output:
         if args.output.exists():
             raise SystemExit(f"refusing to overwrite existing file: {args.output}")
@@ -125,4 +137,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(GPT_main())

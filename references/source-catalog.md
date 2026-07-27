@@ -1,6 +1,6 @@
 # Primary Source Catalog
 
-Last curated: 2026-07-26. Always check the current official product page and document revision before making a part-specific claim.
+Last curated: 2026-07-27. Always check the current official product page and document revision before making a part-specific claim.
 
 ## Competition and Historical Problems
 
@@ -75,6 +75,16 @@ Retrieve exact device/package pinout, speed grade, errata/advisories, board sche
 - [TI SNVA021C: Layout Guidelines for Switching Power Supplies](https://www.ti.com/lit/pdf/snva021)
 
 Use the product datasheet and layout section for the exact op-amp, ADC, regulator, gate driver, MOSFET, sensor, and motor driver.
+
+## Power-conversion Topology Selection
+
+- [TI SLVAFJ2: Choosing the Right DC/DC Topology for your Power Module](https://www.ti.com/lit/pdf/slvafj2)
+- [TI SLVAFJ4: Choosing the Right Power-Supply Topology](https://www.ti.com/lit/pdf/slvafj4)
+- [TI SLLA497: Power Topologies Handbook — Isolated Topologies](https://www.ti.com/lit/pdf/slla497)
+- [TI SLLA498: Power Topologies Handbook — Inverting, Bidirectional and Isolated Topologies](https://www.ti.com/lit/pdf/slla498)
+- [TI SLYT750: Power-factor-correction Solutions](https://www.ti.com/lit/pdf/slyt750)
+
+Use these for topology vocabulary and first-pass comparison only. Recalculate the complete gain range, device and magnetic stress, loss, control dynamics, common-mode behavior, startup/pre-bias, reverse-energy path, isolation, and fault response for the actual contest specification.
 
 ## Motor Drives, Current Sensing, and Fast Protection
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "NUEDC Engineering Skill"
   short_description: "面向电赛全流程的硬件优先设计、固件、控制与调试工作流"
-  default_prompt: "使用 $nuedc-engineering-skill 分析这道电赛题，并给出经过硬件约束核验的实现方案。"
+  default_prompt: "使用 $nuedc-engineering-skill 分析这道电赛题；先核验证据与备份版本策略，再给出硬件约束明确、代码可溯源且可验证的实现方案。"

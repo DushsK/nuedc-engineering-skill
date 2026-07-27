@@ -36,6 +36,30 @@ Compare topology using:
 
 Prefer a topology whose worst switching loop and control loop can be observed with available equipment.
 
+### 2.1 Topology Map
+
+Do not treat a topology name as a complete design. First classify conversion direction, isolation, source/load quadrants, gain range, power, switching frequency, transient requirement, EMI/common-mode constraints, available magnetics, controller resources, and safe test capability.
+
+| Family | Common topologies | Typical reason to consider | Main evidence or risk |
+|---|---|---|---|
+| Non-isolated step-down/up | Buck, boost, inverting buck-boost, non-inverting four-switch buck-boost | Simple DC conversion; output always below, always above, or crossing the input range | Duty limits, switch/diode stress, right-half-plane zero where applicable, mode transition, current ripple |
+| Non-isolated extended-gain | SEPIC, Cuk, Zeta, cascaded or interleaved stages | Input/output range or ripple/current-continuity requirement not met by a basic stage | Extra reactive parts, capacitor RMS current, efficiency, startup and control complexity |
+| Isolated low/medium power | Flyback, active-clamp flyback, forward, active-clamp forward, push-pull | Isolation, multiple outputs, or transformer ratio is required | Core reset, leakage spikes, clamp loss, cross-regulation, flux imbalance, isolation construction |
+| Isolated medium/high power | Half bridge, full bridge, phase-shifted full bridge, LLC/series resonant | Higher power density, lower switch stress, or soft switching | Transformer design, circulating current, ZVS/ZCS operating range, synchronous timing, burst/light-load behavior |
+| Bidirectional DC-DC | Synchronous buck/boost, four-switch buck-boost, current-fed bridge, dual-active bridge, CLLC | Storage, regenerative load, energy routing, or two DC buses | Both power directions, precharge, bus absorption, current reversal, phase-shift range, fault isolation |
+| AC-DC and PFC | Diode bridge plus boost, interleaved boost, bridgeless/totem-pole, Vienna rectifier, active front end | Power-factor, harmonic, efficiency, or bidirectional grid-interface requirement | Mains isolation, zero crossing, inrush, common-mode EMI, current reconstruction, reverse-recovery/dead-time behavior |
+| DC-AC inverter | Single-phase half bridge/H bridge, three-phase two-level bridge, NPC/T-type or other multilevel stages | AC waveform, motor drive, grid/load interface, or reduced device voltage/dv/dt | Neutral-point balance, modulation limits, dead time, output filter, regenerative bus rise, protection coordination |
+| AC-AC | Phase-angle regulator, cycloconverter, matrix converter, back-to-back active stages | Direct AC control or variable-frequency conversion | Commutation, bidirectional switch implementation, input/output filtering, mains safety, control complexity |
+| Wireless or resonant transfer | Series/parallel compensation, LCC/LCL networks, resonant inverter/rectifier combinations | Loose coupling, isolation through the field, or scoring based on transfer efficiency | Coil alignment, coupling variation, detuning, circulating current, foreign-object heating, measurement method |
+
+For each viable candidate, fill this comparison before selecting:
+
+<code>topology | gain range | isolation | power directions | device stress | magnetics | loss estimate | control order | sensing | EMI | startup/pre-bias | fault path | build/test time</code>
+
+Compare at least two candidates when a meaningful alternative exists. Reject a candidate immediately if it cannot cover the full operating range, safely absorb reverse energy, meet required isolation, or be validated with available instruments. Resonant, bridgeless, multilevel, and bidirectional stages require an explicit operating-region and mode-transition analysis; their best-case efficiency is not sufficient evidence.
+
+Use the official topology-selection and converter-comparison sources in [source-catalog.md](source-catalog.md), then verify the exact controller, switch, magnetic, and reference-design assumptions for the selected stage.
+
 ## 3. Calculate the Stress Table
 
 Create a table for every switching device, diode, inductor/transformer, capacitor, shunt, connector, and regulator:

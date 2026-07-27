@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 
-CATEGORY_RULES: dict[str, tuple[str, ...]] = {
+GPT_CATEGORY_RULES: dict[str, tuple[str, ...]] = {
     "power-electronics": (
         "电源", "变换", "逆变", "整流", "充电", "电能", "功率", "负载", "发电",
         "稳压", "滤波", "回馈", "微电网", "无线充电", "电流源", "并网",
@@ -50,7 +50,7 @@ CATEGORY_RULES: dict[str, tuple[str, ...]] = {
     ),
 }
 
-HARDWARE_RULES: dict[str, tuple[str, ...]] = {
+GPT_HARDWARE_RULES: dict[str, tuple[str, ...]] = {
     "power-stage": ("电源", "变换", "逆变", "整流", "充电", "负载", "回馈", "并网"),
     "precision-analog": ("测量", "测试仪", "电子秤", "电阻", "电容", "电感", "电压表"),
     "high-speed-sampling": ("示波", "频谱", "调制", "波形", "高速", "射频", "以太网"),
@@ -62,18 +62,18 @@ HARDWARE_RULES: dict[str, tuple[str, ...]] = {
     "mechanical-system": ("小车", "飞行器", "摆", "滚球", "悬浮", "机器人", "货架", "分拣"),
 }
 
-EXCLUDE_MARKERS = (
+GPT_EXCLUDE_MARKERS = (
     "器件清单", "元器件清单", "题目列表", "历年题目", "Exams-list", "答疑统计",
     "附件", "附图", "数字字模", "总体图", "地貌图",
 )
 
-TITLE_ALIASES = {
+GPT_TITLE_ALIASES = {
     "易照明线路探测仪": "简易照明线路探测仪",
 }
 
 
 @dataclass(frozen=True)
-class Problem:
+class GPT_Problem:
     year: int
     event: str
     code: str
@@ -85,24 +85,24 @@ class Problem:
     source_url: str
 
 
-def normalize_title(value: str) -> str:
+def GPT_normalize_title(value: str) -> str:
     value = value.replace("＿", "_").replace("－", "-")
     value = re.sub(r"^[题._\-\s]+", "", value)
     value = re.sub(r"[_\s]+", " ", value)
     return value.strip(" ._-")
 
 
-def classify(title: str, rules: dict[str, tuple[str, ...]], fallback: str) -> tuple[str, ...]:
+def GPT_classify(title: str, rules: dict[str, tuple[str, ...]], fallback: str) -> tuple[str, ...]:
     tags = [name for name, keywords in rules.items() if any(word.lower() in title.lower() for word in keywords)]
     return tuple(tags or [fallback])
 
 
-def parse_problem_path(raw_path: str, source: str) -> Problem | None:
+def GPT_parse_problem_path(raw_path: str, source: str) -> GPT_Problem | None:
     normalized_path = raw_path.replace("\\", "/").strip()
     suffix = Path(normalized_path).suffix.lower()
     if suffix not in {".pdf", ".doc", ".docx"}:
         return None
-    if any(marker.lower() in normalized_path.lower() for marker in EXCLUDE_MARKERS):
+    if any(marker.lower() in normalized_path.lower() for marker in GPT_EXCLUDE_MARKERS):
         return None
 
     year_match = re.search(r"(?<!\d)((?:19|20)\d{2})(?!\d)", normalized_path)
@@ -120,8 +120,8 @@ def parse_problem_path(raw_path: str, source: str) -> Problem | None:
     if code_match:
         code = code_match.group(1)
         title = code_match.group(2)
-    title = normalize_title(title)
-    title = TITLE_ALIASES.get(title, title)
+    title = GPT_normalize_title(title)
+    title = GPT_TITLE_ALIASES.get(title, title)
     if not title or title.isdigit():
         return None
 
@@ -140,20 +140,20 @@ def parse_problem_path(raw_path: str, source: str) -> Problem | None:
     else:
         url = "https://github.com/chenshuo/nuedc/blob/main/docs/problems/" + quote(Path(normalized_path).name)
 
-    return Problem(
+    return GPT_Problem(
         year=year,
         event=event,
         code=code,
         title=title,
-        categories=classify(title, CATEGORY_RULES, "integrated-system"),
-        hardware_hints=classify(title, HARDWARE_RULES, "general-embedded"),
+        categories=GPT_classify(title, GPT_CATEGORY_RULES, "integrated-system"),
+        hardware_hints=GPT_classify(title, GPT_HARDWARE_RULES, "general-embedded"),
         source=source,
         source_path=normalized_path,
         source_url=url,
     )
 
 
-def collect(tree_file: Path | None, corpus_dir: Path | None) -> list[Problem]:
+def GPT_collect(tree_file: Path | None, corpus_dir: Path | None) -> list[GPT_Problem]:
     candidates: list[tuple[str, str]] = []
     if tree_file:
         for line in tree_file.read_text(encoding="utf-8-sig").splitlines():
@@ -164,9 +164,9 @@ def collect(tree_file: Path | None, corpus_dir: Path | None) -> list[Problem]:
             if path.is_file():
                 candidates.append((path.name, "chenshuo-nuedc"))
 
-    deduplicated: dict[tuple[int, str, str, str], Problem] = {}
+    deduplicated: dict[tuple[int, str, str, str], GPT_Problem] = {}
     for raw_path, source in candidates:
-        problem = parse_problem_path(raw_path, source)
+        problem = GPT_parse_problem_path(raw_path, source)
         if not problem:
             continue
         key = (problem.year, problem.event, problem.code, re.sub(r"\W", "", problem.title).lower())
@@ -176,7 +176,7 @@ def collect(tree_file: Path | None, corpus_dir: Path | None) -> list[Problem]:
     return sorted(deduplicated.values(), key=lambda item: (item.year, item.event, item.code, item.title))
 
 
-def write_csv(problems: list[Problem], output: Path) -> None:
+def GPT_write_csv(problems: list[GPT_Problem], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     fields = ["year", "event", "code", "title", "categories", "hardware_hints", "source", "source_path", "source_url"]
     with output.open("w", encoding="utf-8-sig", newline="") as handle:
@@ -196,7 +196,7 @@ def write_csv(problems: list[Problem], output: Path) -> None:
             })
 
 
-def write_summary(problems: list[Problem], output: Path) -> None:
+def GPT_write_summary(problems: list[GPT_Problem], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     category_counts = Counter(tag for item in problems for tag in item.categories)
     hardware_counts = Counter(tag for item in problems for tag in item.hardware_hints)
@@ -221,7 +221,7 @@ def write_summary(problems: list[Problem], output: Path) -> None:
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def main() -> int:
+def GPT_main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tree-file", type=Path, help="UTF-8 file containing repository paths, one per line")
     parser.add_argument("--corpus-dir", type=Path, help="Directory containing historical problem files")
@@ -231,14 +231,14 @@ def main() -> int:
     args = parser.parse_args()
     if not args.tree_file and not args.corpus_dir:
         parser.error("provide --tree-file, --corpus-dir, or both")
-    problems = collect(args.tree_file, args.corpus_dir)
+    problems = GPT_collect(args.tree_file, args.corpus_dir)
     if len(problems) < args.min_records:
         raise SystemExit(f"only {len(problems)} records found; expected at least {args.min_records}")
-    write_csv(problems, args.out_csv)
-    write_summary(problems, args.out_summary)
+    GPT_write_csv(problems, args.out_csv)
+    GPT_write_summary(problems, args.out_summary)
     print(f"wrote {len(problems)} records to {args.out_csv}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(GPT_main())

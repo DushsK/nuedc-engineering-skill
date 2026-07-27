@@ -86,6 +86,34 @@
 - Configuration CRC/rollback:
 ```
 
+## AI-assisted Code Change
+
+```markdown
+## Backup and Version
+- User-selected backup method:
+- Baseline commit/tag/archive:
+- Target version and changelog entry:
+- Rollback command/procedure:
+
+## Provenance
+- Generator family and exact model if known:
+- Required prefix:
+- Files/symbols created or materially rewritten:
+- External-name exceptions and delegates:
+- Human reviewer:
+
+## Evidence and Simplicity
+- Verified repository APIs/build commands:
+- Unverified hardware values and required evidence:
+- Why each new function/type/layer exists:
+- Failure mode behind each defensive check:
+
+## Verification
+- Real commands or bench tests executed:
+- Result:
+- Remaining risks or disabled paths:
+```
+
 ## Control Review
 
 ```markdown
@@ -141,6 +169,8 @@
 - [ ] Cold start, power cycle, reset and brownout passed
 - [ ] Calibration/configuration restore passed
 - [ ] Known-good binary/bitstream/model and rollback instructions saved
+- [ ] Backup baseline, version and changelog entry recorded
+- [ ] AI-generated code prefix/provenance and external-name exceptions recorded
 - [ ] Hardware, wiring, mechanical and report revisions match
 - [ ] STOP/FIX findings closed or affected feature disabled
 - [ ] Team can operate without development tools

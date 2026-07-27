@@ -22,6 +22,8 @@ Turn a contest statement into a measurable, buildable, hardware-safe system. Tre
 8. Build a minimum verifiable baseline first. Add scoring extensions only after the baseline repeatedly passes.
 9. Put hardware protection at the actuator boundary. Do not rely only on upstream software checks.
 10. Stop and request missing evidence when an unknown can damage hardware, create unsafe motion, invalidate measurement accuracy, or determine whether a peripheral can work.
+11. Before changing an existing project, agree on the backup, version, change-log, and rollback method.
+12. Keep AI-generated code evidence-backed and minimal. Apply the generator-family prefix to new project-owned symbols; do not invent APIs or add speculative abstractions and defenses.
 
 ## Severity Model
 
@@ -106,6 +108,8 @@ Use [hardware-first.md](references/hardware-first.md) and the relevant domain re
 
 Define startup/shutdown state machines, safe outputs, interrupt ownership, DMA buffer ownership, communication recovery, sensor validity, timestamping, watchdog policy, persistent configuration integrity, bounded actuator commands, slew limits, anti-windup, and fault latching.
 
+Before the first write to an existing project, use [ai-code-quality.md](references/ai-code-quality.md) to confirm the backup baseline, version/log plan, generator prefix, and external-name exceptions. Every abstraction and defensive check must map to a proven reuse, test, boundary, invariant, or fault.
+
 Route to [mcu-firmware.md](references/mcu-firmware.md), [dsp.md](references/dsp.md), or [fpga.md](references/fpga.md). Keep part-specific register values out of the answer until verified.
 
 ### 8. Design the Algorithm Around the Plant
@@ -148,6 +152,7 @@ Read [contest-execution.md](references/contest-execution.md). Freeze a known-goo
 | MCU selection and firmware architecture | [mcu-firmware.md](references/mcu-firmware.md) |
 | Real-time filtering, FFT, fixed point, C2000 or dedicated DSP | [dsp.md](references/dsp.md) |
 | Parallel logic, high-speed acquisition, custom timing, FPGA SoC | [fpga.md](references/fpga.md) |
+| AI-generated code, provenance prefixes, backup, versioning, minimal abstraction | [ai-code-quality.md](references/ai-code-quality.md) |
 
 Use [platform-matrix.md](references/platform-matrix.md) when the platform is undecided. Use [historical-taxonomy.md](references/historical-taxonomy.md) for recurring patterns.
 
@@ -163,9 +168,10 @@ For a full solution, output:
 6. Electrical, timing, resource, control, and uncertainty budgets.
 7. Hardware schematic/PCB/mechanical checklist.
 8. Firmware/FPGA/DSP module and state-machine plan.
-9. Bring-up and calibration sequence.
-10. Acceptance tests, fault injection, and rollback plan.
-11. `STOP` / `FIX` / `IMPROVE` findings.
+9. AI provenance/prefix map and backup/version/change-log plan when code is generated or modified.
+10. Bring-up and calibration sequence.
+11. Acceptance tests, fault injection, and rollback plan.
+12. `STOP` / `FIX` / `IMPROVE` findings.
 
 Use [output-templates.md](references/output-templates.md).
 
@@ -189,3 +195,4 @@ Do not hide uncertainty behind “adjust as needed.” Convert it into a measure
 - Run `python scripts/new_problem_brief.py --help` to create a score-first worksheet.
 - Run `python scripts/check_project.py` before publishing changes.
 - Consult [source-catalog.md](references/source-catalog.md) for primary-source starting points.
+- Use [ai-code-quality.md](references/ai-code-quality.md) before AI-assisted code changes.

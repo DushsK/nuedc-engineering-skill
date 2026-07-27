@@ -146,6 +146,8 @@ Verify toolchain maturity, debug, peripheral documentation, memory map, accelera
 
 Before producing code, state:
 
+- Backup method, baseline identifier, target version, changelog entry, and rollback path.
+- AI generator family, required symbol prefix, and external-name exceptions.
 - Exact target and documentation revision.
 - Clock and timing derivation.
 - Pin/peripheral ownership.
@@ -154,6 +156,9 @@ Before producing code, state:
 - Buffer and memory budget.
 - Calibration and configuration format.
 - Fault and recovery behavior.
+- Why each new abstraction and defensive check exists.
 - Bench test that proves each hardware-facing module.
 
 If any required part-specific value is unverified, emit a named placeholder and the exact document/measurement needed rather than a plausible number.
+
+Use [ai-code-quality.md](ai-code-quality.md). Do not hide direct hardware ownership or timing behind unnecessary wrappers, and do not add repeated checks, silent fallbacks, or retries without a named fault and bounded response.

@@ -4,12 +4,13 @@ This project is maintained as an evidence-backed engineering system, not a one-t
 
 ## Current Baseline
 
-The `v0.1.0` baseline includes:
+The `v0.2.0` baseline includes:
 
 - A concise core Skill with domain routing and a required output contract.
-- 18 engineering references and 6 worked cross-domain examples.
+- 19 engineering references and 6 worked cross-domain examples.
 - 206 derived historical-problem records with source links and provenance.
 - Static validation, metadata generation, and score-first brief tooling.
+- Power-topology selection, AI code provenance prefixes, proportionate code-generation rules, and versioned backup/change-log gates.
 
 ## Near-term Priorities
 

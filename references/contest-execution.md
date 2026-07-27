@@ -37,18 +37,24 @@ Adapt the exact schedule to the event duration, but preserve this order:
 
 Set abandonment criteria for every extension. Examples: missing critical part, no observable prototype by the deadline, unstable baseline after integration, or unbounded calibration time.
 
-## 4. Version Everything That Changes Results
+## 4. Version and Back Up Everything That Changes Results
+
+Before modifying an existing project, ask once how the team wants the current state preserved unless a backup method was already specified. Prefer a clean Git commit plus annotated semantic-version tag; use a dated archive only when reliable version control is unavailable. Save known-good binary, bitstream, model, configuration, calibration, schematic/PCB/BOM, and recovery instructions separately when source history alone cannot restore the working machine.
 
 Record:
 
-- Source commit and build artifact hash.
+- Release or snapshot version, date, source commit, and build artifact hash.
+- AI generator family/prefix, human reviewer, and any external-name exceptions.
 - Toolchain, libraries, FPGA project/tool version, model/runtime version.
 - PCB/schematic/BOM and mechanical revision.
 - Wiring and connector map.
 - Configuration and calibration version.
 - Test fixture, instrument, settings, and raw data.
+- Migration steps, verification result, known limitations, and rollback command.
 
-Keep a one-command or one-page recovery procedure for programming the known-good build.
+Use <code>vMAJOR.MINOR.PATCH</code> for releases and a clear suffix such as <code>-prechange-YYYYMMDD</code> for an internal snapshot. Do not create ambiguous copies such as <code>final</code>, <code>final2</code>, or <code>new-final</code>.
+
+Keep a one-command or one-page recovery procedure for programming the known-good build. Every release must have a changelog entry that distinguishes added, changed, fixed, removed, safety, compatibility, and known-risk items when applicable.
 
 ## 5. Parts and Physical Logistics
 
