@@ -6,6 +6,17 @@ All notable changes are recorded by release. Versions follow Semantic Versioning
 
 - Continue expanding verified platform evidence, historical labels, real failure cases, and worked examples.
 
+## [0.2.1] - 2026-07-27
+
+### Fixed
+
+- Correct the titles of five TI power-topology source documents after direct verification against the official PDFs.
+
+### Compatibility and Verification
+
+- No code, CLI, data, or Skill behavior changed from `v0.2.0`.
+- `python scripts/check_project.py` and the existing CLI smoke tests remain the release gate.
+
 ## [0.2.0] - 2026-07-27
 
 ### Added

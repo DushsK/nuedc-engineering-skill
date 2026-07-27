@@ -78,11 +78,11 @@ Use the product datasheet and layout section for the exact op-amp, ADC, regulato
 
 ## Power-conversion Topology Selection
 
-- [TI SLVAFJ2: Choosing the Right DC/DC Topology for your Power Module](https://www.ti.com/lit/pdf/slvafj2)
-- [TI SLVAFJ4: Choosing the Right Power-Supply Topology](https://www.ti.com/lit/pdf/slvafj4)
-- [TI SLLA497: Power Topologies Handbook — Isolated Topologies](https://www.ti.com/lit/pdf/slla497)
-- [TI SLLA498: Power Topologies Handbook — Inverting, Bidirectional and Isolated Topologies](https://www.ti.com/lit/pdf/slla498)
-- [TI SLYT750: Power-factor-correction Solutions](https://www.ti.com/lit/pdf/slyt750)
+- [TI SLVAFJ2: How to Approach a Power-Supply Design — Part 1](https://www.ti.com/lit/pdf/slvafj2)
+- [TI SLVAFJ4: How to Approach a Power-Supply Design — Part 2](https://www.ti.com/lit/pdf/slvafj4)
+- [TI SLLA497: Power Topology Considerations for Electric Vehicle Charging Stations](https://www.ti.com/lit/pdf/slla497)
+- [TI SLLA498: Power Topology Considerations for Solar String Inverters and Energy Storage Systems](https://www.ti.com/lit/pdf/slla498)
+- [TI SLYT750: A Comparative Analysis of Topologies for a Bridgeless-Boost PFC Circuit](https://www.ti.com/lit/pdf/slyt750)
 
 Use these for topology vocabulary and first-pass comparison only. Recalculate the complete gain range, device and magnetic stress, loss, control dynamics, common-mode behavior, startup/pre-bias, reverse-energy path, isolation, and fault response for the actual contest specification.
 
